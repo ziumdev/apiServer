@@ -22,6 +22,7 @@ def makeMessage(runConfig, param):
     statEvetNm = ''
     eventStatusNm = ''
     missionType = ''
+    groupCode = ''
 
     if param['eventType'] == 'EVT-01':
         statEvetNm = "침입"
@@ -34,14 +35,19 @@ def makeMessage(runConfig, param):
 
     if param['missionType'] == 'MT-01':
         missionType = "경계감시"
+        groupCode = 'EE-01'
     elif param['missionType'] == 'MT-02':
         missionType = "안전재난"
+        groupCode = 'EE-02'
     elif param['missionType'] == 'MT-03':
         missionType = "병력생활"
+        groupCode = 'EE-03'
     elif param['missionType'] == 'MT-04':
         missionType = "무기탄약"
+        groupCode = 'EE-03'
     elif param['missionType'] == 'MT-10':
         missionType = "병력현황"
+        groupCode = 'EE-01'
 
     if param['eventStatus'] == 'EVS-01':
         eventStatusNm = '상황접수'
@@ -52,7 +58,11 @@ def makeMessage(runConfig, param):
     elif param['eventStatus'] == 'EVS-04':
         eventStatusNm = '기타 상황'
 
-    statEvetItem = [{'key': missionType, 'value': eventStatusNm}]
+    statEvetItem = [
+        {'key': missionType, 'value': eventStatusNm},
+        {'key': 'data', 'value': param},
+        {'key': 'groupCode', 'value': 'EE-01'}
+    ]
 
     bodyJson["StatEvet"]["uSvcOutbId"] = uSvcOutbId
     bodyJson["StatEvet"]["statEvetId"] = statEvetId
@@ -68,9 +78,16 @@ def makeMessage(runConfig, param):
     bodyJson["StatEvet"]["cpxRelEvetOutbSeqnCnt"] = 0
     bodyJson["StatEvet"]["outbPos"] = runConfig.location
 
+    print("ERS msg")
     print(bodyJson)
-    # sendToErs(runConfig, bodyJson)
+    sendToErs(runConfig, bodyJson)
     eventCnt += 1
+
+    param['groupCode'] = groupCode
+    param['isSendOk'] = 'N'
+    print('mobile Shooter Msg')
+    print(param)
+    return param
 
 
 def sendToErs(runConfig, jsonData):
