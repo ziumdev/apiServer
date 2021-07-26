@@ -22,7 +22,6 @@ def makeMessage(runConfig, param):
     statEvetNm = ''
     eventStatusNm = ''
     missionType = ''
-    print(param['eventType'])
 
     if param['eventType'] == 'EVT-01':
         statEvetNm = "침입"
@@ -72,7 +71,7 @@ def makeMessage(runConfig, param):
     print(bodyJson)
     # sendToErs(runConfig, bodyJson)
     eventCnt += 1
-    print(eventCnt)
+
 
 def sendToErs(runConfig, jsonData):
     currentDateTimeString = datetime.datetime.today().strftime('%Y%m%d%H%M%S%f')[:-3]
@@ -80,9 +79,8 @@ def sendToErs(runConfig, jsonData):
     headerB = runConfig.headerTypeCd + runConfig.traceId + currentDateTimeString
     jsonData['StatEvet']['statEvetOutbDtm'] = currentDateTimeString
     bodyByte = json.dumps(jsonData, ensure_ascii=False).encode('utf-8')  # Json 값을 byte로 변경
-    # bodyByte = marshal.dumps(bodyJson)
     bodyLength = struct.pack('<I', bodyByte.__len__())
     header = headerA.encode('utf-8').__add__(bodyLength).__add__(headerB.encode('utf-8'))
     msg = header + bodyByte
-    sendMsg(runConfig, msg.decode())
+    sendMsg(runConfig, msg)
     pass
