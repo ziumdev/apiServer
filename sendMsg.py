@@ -1,6 +1,6 @@
 import datetime, json, struct, socket
-
-eventCnt = 0
+import uuid
+eventCnt = '10'
 eventCode = "E"
 
 
@@ -14,9 +14,9 @@ def sendMsg(runConfig, msg) :
 def makeMessage(runConfig, param):
     eventCode = "E" + str(param['missionType'][-2:])
     global eventCnt
-    uSvcOutbId = runConfig.mrsClientCd + '-' + runConfig.mrsSiteCd + '-' + runConfig.headerTypeCd + 'PHN' + str(eventCnt).zfill(3)
-    statEvetId = uSvcOutbId + eventCode
-    bodyJson = {"StatEvet" : {
+    uSvcOutbId = str(uuid.uuid4())[0:24]
+    statEvetId = runConfig.mrsClientCd + '-' + runConfig.mrsSiteCd + '-' + '000' + 'PHN' + '010' + eventCode
+    bodyJson = {"StatEvet": {
         }
     }
     statEvetNm = ''

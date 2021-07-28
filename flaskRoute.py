@@ -1,6 +1,6 @@
-from flask import Flask, request, Response, jsonify
+from flask import Flask, request, jsonify
 from apiServerConfig import apiConfig
-import json
+import json, requests
 import sendMsg
 
 app = Flask(__name__)
@@ -16,7 +16,8 @@ def mobile():
             "responseMessage": "bad request"
         })
     else:
-        sendMsg.makeMessage(runConfig, param)
+        postMsg = sendMsg.makeMessage(runConfig, param)
+        requests.post(url='110.10.130.51:5002/Emergency/EventStatus/EventStatusSave', data=json.dumps(postMsg))
         return json.dumps({
             "responseCode": 200,
             "responseMessage": "success"
