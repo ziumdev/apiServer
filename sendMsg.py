@@ -81,7 +81,6 @@ def makeMessage(runConfig, param):
     print("ERS msg")
     print(bodyJson)
     sendToErs(runConfig, bodyJson)
-    eventCnt += 1
 
     param['groupCode'] = groupCode
     param['isSendOk'] = 'N'
