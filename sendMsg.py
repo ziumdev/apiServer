@@ -12,7 +12,7 @@ def sendMsg(runConfig, msg) :
 
 
 def makeMessage(runConfig, param):
-    eventCode = "E" + str(param['missionType'][-2:])
+    eventCode = "E" + str(param['MissionType'][-2:])
     global eventCnt
     uSvcOutbId = str(uuid.uuid4())[0:24]
     statEvetId = runConfig.mrsClientCd + '-' + runConfig.mrsSiteCd + '-' + '000' + 'PHN' + '010' + eventCode
@@ -24,38 +24,38 @@ def makeMessage(runConfig, param):
     missionType = ''
     groupCode = ''
 
-    if param['eventType'] == 'EVT-01':
+    if param['EventType'] == 'EVT-01':
         statEvetNm = "침입"
-    elif param['eventType'] == 'EVT-02':
+    elif param['EventType'] == 'EVT-02':
         statEvetNm = "배회"
-    elif param['eventType'] == 'EVT-03':
+    elif param['EventType'] == 'EVT-03':
         statEvetNm = "유기"
-    elif param['eventType'] == 'EVT-04':
+    elif param['EventType'] == 'EVT-04':
         statEvetNm = "화재"
 
-    if param['missionType'] == 'MT-01':
+    if param['MissionType'] == 'MT-01':
         missionType = "경계감시"
         groupCode = 'EE-01'
-    elif param['missionType'] == 'MT-02':
+    elif param['MissionType'] == 'MT-02':
         missionType = "안전재난"
         groupCode = 'EE-02'
-    elif param['missionType'] == 'MT-03':
+    elif param['MissionType'] == 'MT-03':
         missionType = "병력생활"
         groupCode = 'EE-03'
-    elif param['missionType'] == 'MT-04':
+    elif param['MissionType'] == 'MT-04':
         missionType = "무기탄약"
         groupCode = 'EE-03'
-    elif param['missionType'] == 'MT-10':
+    elif param['MissionType'] == 'MT-10':
         missionType = "병력현황"
         groupCode = 'EE-01'
 
-    if param['eventStatus'] == 'EVS-01':
+    if param['EventStatus'] == 'EVS-01':
         eventStatusNm = '상황접수'
-    elif param['eventStatus'] == 'EVS-02':
+    elif param['EventStatus'] == 'EVS-02':
         eventStatusNm = '조치 중'
-    elif param['eventStatus'] == 'EVS-03':
+    elif param['EventStatus'] == 'EVS-03':
         eventStatusNm = '상황종료'
-    elif param['eventStatus'] == 'EVS-04':
+    elif param['EventStatus'] == 'EVS-04':
         eventStatusNm = '기타 상황'
 
     statEvetItem = [
@@ -80,9 +80,9 @@ def makeMessage(runConfig, param):
 
     print("ERS msg")
     print(bodyJson)
-    sendToErs(runConfig, bodyJson)
+    # sendToErs(runConfig, bodyJson)
 
-    param['groupCode'] = groupCode
+    param['GroupCode'] = groupCode
     param['isSendOk'] = 'N'
     print('mobile Shooter Msg')
     print(param)

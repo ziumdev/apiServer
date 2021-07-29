@@ -10,18 +10,28 @@ runConfig = apiConfig.TestConfig
 @app.route('/sos', methods=['POST'])
 def mobile():
     param = request.get_json()
-    if 'eventId' not in param :
+    if 'EventId' not in param :
         return json.dumps({
-            "responseCode": 400,
+            "responseCode": 4000,
             "responseMessage": "bad request"
         })
     else:
         postMsg = sendMsg.makeMessage(runConfig, param)
-        requests.post(url='110.10.130.51:5002/Emergency/EventStatus/EventStatusSave', data=json.dumps(postMsg))
-        return json.dumps({
-            "responseCode": 200,
-            "responseMessage": "success"
-        })
+        try:
+            requests.post(url=runConfig.mobileAPIServerHost+runConfig.mobileAPIServerURL, data=json.dumps(postMsg))
+            return json.dumps({
+                "responseCode": 2000,
+                "responseMessage": "success"
+            })
+        except ConnectionError as connError:
+            print(connError)
+            return json.dumps({
+                "responseCode": 4004,
+                "responseMessage": "Connection with Mobile API server"
+            })
+
+        finally:
+            pass
 
 
 @app.route('/test', methods=['POST'])
