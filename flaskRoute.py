@@ -21,7 +21,11 @@ def mobile():
         postMsg = sendMsg.makeMessage(runConfig, param)
         postMsgData = json.dumps(postMsg)
         try:
-            requests.post(url=runConfig.mobileAPIServerHost+runConfig.mobileAPIServerURL, data=postMsgData)
+            response = requests.post(url=runConfig.mobileAPIServerHost+runConfig.mobileAPIServerURL, data=postMsgData)
+            print(
+                {'response': response}
+            )
+
 
             return json.dumps({
                 "responseCode": 2000,
