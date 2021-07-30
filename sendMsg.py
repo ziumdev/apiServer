@@ -80,8 +80,10 @@ def makeMessage(runConfig, param):
 
     print("ERS msg")
     print(bodyJson)
-    # sendToErs(runConfig, bodyJson)
+    sendToErs(runConfig, bodyJson)
 
+    param['EquipID'] = 'ESE'
+    param['EventRemark'] = statEvetNm + '이벤트 발생' + ', ' + missionType + ' ' + eventStatusNm
     param['GroupCode'] = groupCode
     param['isSendOk'] = 'N'
     print('mobile Shooter Msg')
