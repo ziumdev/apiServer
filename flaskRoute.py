@@ -22,7 +22,11 @@ def mobile():
         postMsgData = json.dumps(postMsg)
         print(postMsgData)
         try:
-            response = requests.post(url=runConfig.mobileAPIServerHost+runConfig.mobileAPIServerURL, data=postMsgData)
+            header = {
+                'Content-type': 'application/json',
+                'Accept': 'application/json'
+            }
+            response = requests.post(url=runConfig.mobileAPIServerHost+runConfig.mobileAPIServerURL,  json=postMsgData, headers=header)
             print(
                 {'response': response}
             )
