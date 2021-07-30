@@ -20,8 +20,8 @@ class DevelopmentConfig(apiConfig):
     headerTypeCd = '001'
     traceId = '                        '
     location = [{
-        'x': '37.76400393860835',
-        'y': '126.7839482482826',
+        'y': '37.76400393860835',
+        'x': '126.7839482482826',
         'z': '0'
     }]
 
@@ -45,8 +45,8 @@ class TestConfig(apiConfig):
     headerTypeCd = '001'
     traceId = '                        '
     location = [{
-        'x': '37.761419193645686',
-        'y': '126.78460836410522',
+        'y': '37.761419193645686',
+        'x': '126.78460836410522',
         'z': '0'
     }]
 
