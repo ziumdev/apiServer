@@ -88,6 +88,7 @@ def makeMessage(runConfig, param):
     param['isSendOk'] = 'N'
     print('mobile Shooter Msg')
     print(param)
+
     return param
 
 
