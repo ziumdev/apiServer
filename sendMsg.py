@@ -87,7 +87,7 @@ def makeMessage(runConfig, param):
     param['EventDateTime'] = str(datetime.datetime.now())
     param['GroupCode'] = groupCode
     param['IsSendOk'] = 'N'
-    print('mobile Shooter Msg')
+    print('mobile Shooter Msg check')
 
     return param
 
