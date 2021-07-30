@@ -84,6 +84,7 @@ def makeMessage(runConfig, param):
 
     param['EquipID'] = 'ESE'
     param['EventRemark'] = statEvetNm + '이벤트 발생' + ', ' + missionType + ' ' + eventStatusNm
+    param['EventDateTime'] = datetime.datetime.now()
     param['GroupCode'] = groupCode
     param['isSendOk'] = 'N'
     print('mobile Shooter Msg')

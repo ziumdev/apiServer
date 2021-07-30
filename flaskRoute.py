@@ -1,24 +1,34 @@
 from flask import Flask, request, jsonify
 from apiServerConfig import apiConfig
 import json, requests
+from json import JSONEncoder
 import sendMsg
+import datetime
 
 app = Flask(__name__)
 runConfig = apiConfig.TestConfig
 
 
+class DateTimeEncoder(JSONEncoder):
+    # Override the default method
+    def default(self, obj):
+        if isinstance(obj, (datetime.date, datetime.datetime)):
+            return obj.isoformat()
+
+
 @app.route('/sos', methods=['POST'])
 def mobile():
     param = request.get_json()
-    if 'EventId' not in param :
+    if 'EventId' not in param:
         return json.dumps({
             "responseCode": 4000,
             "responseMessage": "bad request"
         })
     else:
         postMsg = sendMsg.makeMessage(runConfig, param)
+        postMsgData = json.dumps(postMsg, indent=4, cls=DateTimeEncoder)
         try:
-            requests.post(url=runConfig.mobileAPIServerHost+runConfig.mobileAPIServerURL, data=json.dumps(postMsg))
+            requests.post(url=runConfig.mobileAPIServerHost+runConfig.mobileAPIServerURL, data=postMsgData)
             return json.dumps({
                 "responseCode": 2000,
                 "responseMessage": "success"
@@ -29,7 +39,6 @@ def mobile():
                 "responseCode": 4004,
                 "responseMessage": "Connection with Mobile API server"
             })
-
         finally:
             pass
 
