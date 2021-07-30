@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 from apiServerConfig import apiConfig
 import json, requests
-from json import JSONEncoder
 import sendMsg
-import datetime
+import testData
+
 
 app = Flask(__name__)
 runConfig = apiConfig.TestConfig
@@ -20,13 +20,15 @@ def mobile():
     else:
         postMsg = sendMsg.makeMessage(runConfig, param)
         postMsgData = json.dumps(postMsg)
-        print(postMsgData)
+        # print(postMsgData)
+        print(json.dumps(testData))
         try:
             header = {
                 'Content-type': 'application/json',
                 'Accept': 'application/json'
             }
-            response = requests.post(url=runConfig.mobileAPIServerHost+runConfig.mobileAPIServerURL,  json=postMsgData, headers=header)
+            # response = requests.post(url=runConfig.mobileAPIServerHost+runConfig.mobileAPIServerURL,  json=postMsgData, headers=header)
+            response = requests.post(url=runConfig.mobileAPIServerHost+runConfig.mobileAPIServerURL,  json=json.dumps(testData), headers=header)
             print(
                 {'response': response}
             )
