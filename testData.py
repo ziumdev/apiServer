@@ -1,9 +1,9 @@
 import time
 
 mobileTestData = {
-    "eventId" : str(time.time()),
+    "EventId" : "000123456",
     "EventType" : "EVT-03",
-    "EventRemark" : " 거수자 발생 했습니다.",
-    "IsSendOk": "N",
-    "GroupCode" : "EE-01"
+    "EventRemark" : "evert TEST",
+    "GroupCode" : "EE-01",
+    "IsSendOk": "N"
 }
