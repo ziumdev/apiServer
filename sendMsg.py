@@ -49,13 +49,13 @@ def makeMessage(runConfig, param):
         missionType = "병력현황"
         groupCode = 'EE-01'
 
-    if param['EventStatus'] == 'EVS-01':
+    if param['Status'] == 'EVS-01':
         eventStatusNm = '상황접수'
-    elif param['EventStatus'] == 'EVS-02':
+    elif param['Status'] == 'EVS-02':
         eventStatusNm = '조치 중'
-    elif param['EventStatus'] == 'EVS-03':
+    elif param['Status'] == 'EVS-03':
         eventStatusNm = '상황종료'
-    elif param['EventStatus'] == 'EVS-04':
+    elif param['Status'] == 'EVS-04':
         eventStatusNm = '기타 상황'
 
     statEvetItem = [
