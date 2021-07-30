@@ -88,7 +88,6 @@ def makeMessage(runConfig, param):
     param['GroupCode'] = groupCode
     param['IsSendOk'] = 'N'
     print('mobile Shooter Msg')
-    print(param)
 
     return param
 
