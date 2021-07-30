@@ -9,13 +9,6 @@ app = Flask(__name__)
 runConfig = apiConfig.TestConfig
 
 
-class DateTimeEncoder(JSONEncoder):
-    # Override the default method
-    def default(self, obj):
-        if isinstance(obj, (datetime.date, datetime.datetime)):
-            return obj.isoformat()
-
-
 @app.route('/sos', methods=['POST'])
 def mobile():
     param = request.get_json()
@@ -26,9 +19,10 @@ def mobile():
         })
     else:
         postMsg = sendMsg.makeMessage(runConfig, param)
-        postMsgData = json.dumps(postMsg, indent=4, cls=DateTimeEncoder)
+        postMsgData = json.dumps(postMsg)
         try:
             requests.post(url=runConfig.mobileAPIServerHost+runConfig.mobileAPIServerURL, data=postMsgData)
+
             return json.dumps({
                 "responseCode": 2000,
                 "responseMessage": "success"
