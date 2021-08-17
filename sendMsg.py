@@ -26,28 +26,35 @@ def makeMessage(runConfig, param):
 
     if param['EventType'] == 'EVT-01':
         statEvetNm = "침입"
+        groupCode = 'EE-01'
     elif param['EventType'] == 'EVT-02':
         statEvetNm = "배회"
+        groupCode = 'EE-01'
     elif param['EventType'] == 'EVT-03':
         statEvetNm = "유기"
+        groupCode = 'EE-02'
     elif param['EventType'] == 'EVT-04':
         statEvetNm = "화재"
+        groupCode = 'EE-02'
+    elif param['EventType'] == 'EVT-16':
+        statEvetNm = "긴급 SOS"
+        groupCode = 'EE-03'
 
     if param['MissionType'] == 'MT-01':
         missionType = "경계감시"
-        groupCode = 'EE-01'
+        # groupCode = 'EE-01'
     elif param['MissionType'] == 'MT-02':
         missionType = "안전재난"
-        groupCode = 'EE-02'
+        # groupCode = 'EE-02'
     elif param['MissionType'] == 'MT-03':
         missionType = "병력생활"
-        groupCode = 'EE-03'
+        # groupCode = 'EE-03'
     elif param['MissionType'] == 'MT-04':
         missionType = "무기탄약"
-        groupCode = 'EE-03'
+        # groupCode = 'EE-03'
     elif param['MissionType'] == 'MT-10':
         missionType = "병력현황"
-        groupCode = 'EE-01'
+        # groupCode = 'EE-01'
 
     if param['Status'] == 'EVS-01':
         eventStatusNm = '상황접수'

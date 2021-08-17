@@ -26,7 +26,7 @@ class DevelopmentConfig(apiConfig):
     }]
 
     mobileAPIServerHost = 'http://110.10.130.51:5002'
-    mobileAPIServerURL = '/Emergency/EventStatus/EventStatusSave'
+    mobileAPIServerURL = '/Emergency/EventStatus/ESEEventStatusSave'
 
 
 class TestConfig(apiConfig):
@@ -51,7 +51,7 @@ class TestConfig(apiConfig):
     }]
 
     mobileAPIServerHost = 'http://110.10.130.51:5002'
-    mobileAPIServerURL = '/Emergency/EventStatus/EventStatusSave'
+    mobileAPIServerURL = '/Emergency/EventStatus/ESEEventStatusSave'
 
 
 class ProductionConfig(apiConfig):
