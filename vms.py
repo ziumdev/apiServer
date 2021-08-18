@@ -20,7 +20,11 @@ def getVmsList():
     cursor = conn.cursor(cursor_factory=RealDictCursor)
     cursor.execute(qry)
     rows = cursor.fetchall()
-    print(rows)
+    result = {
+        "count" : len(rows),
+        "list": rows
+    }
+    print(result)
     conn.close()
     return rows
 
