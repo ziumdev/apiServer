@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from apiServerConfig import apiConfig
 import json, requests
-import sendMsg, vms
+import sendMsg, vms, callup
 import mgrs
 
 
@@ -46,6 +46,35 @@ def mobile():
             })
         finally:
             pass
+
+
+@app.route('/callUp', methods=['POST'])
+def callupList():
+    param = request.get_data()
+    print(param)
+    postMsg = callup.listCallup(param)
+    # postMsgData = json.dumps(postMsg, ensure_ascii=False).encode('utf-8')
+    # print(postMsgData)
+    # try:
+    #     header = {
+    #         'Content-type': 'application/json',
+    #     }
+    #     response = requests.post(url=runConfig.mobileAPIServerHost+runConfig.mobileAPIServerURL,  data=postMsgData, headers=header)
+    #     print(
+    #         {'response': response}
+    #     )
+    #     return json.dumps({
+    #         "responseCode": 2000,
+    #         "responseMessage": "success"
+    #     })
+    #
+    # except ConnectionError as connError:
+    #     print(connError)
+    #     return json.dumps({
+    #         "responseCode": 4004,
+    #         "responseMessage": "Connection with Mobile API server"
+    #     })
+    #     pass
 
 
 @app.route('/getCamList', methods=['POST'])

@@ -17,7 +17,7 @@ eventType = {
     "긴급SOS": "EVT-16"
 }
 
-eventStatus = {
+status = {
     "상황접수": "EVS-01",
     "조치중": "EVS-02",
     "상황종료": "EVS-03"
