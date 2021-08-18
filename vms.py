@@ -26,5 +26,5 @@ def getVmsList():
     }
     print(result)
     conn.close()
-    return rows
+    return result
 
