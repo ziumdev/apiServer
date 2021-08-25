@@ -78,7 +78,7 @@ def makeMessage(runConfig, param):
     bodyJson["StatEvet"]["procSt"] = 1
     bodyJson["StatEvet"]["outbPosCnt"] = 1
     bodyJson["StatEvet"]["outbPosNm"] = statEvetNm
-    bodyJson["StatEvet"]["statEvetCntn"] = statEvetNm + '이벤트 발생' + ', ' + eventStatusNm
+    bodyJson["StatEvet"]["statEvetCntn"] = statEvetNm + ' 상황 발생' + ', ' + eventStatusNm
     bodyJson["StatEvet"]["statEvetOutbDtm"] = ''
     bodyJson["StatEvet"]["statEvetItemCnt"] = 1
     bodyJson["StatEvet"]["statEvetItem"] = statEvetItem

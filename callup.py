@@ -1,7 +1,7 @@
 import json
 
 from apiServerConfig import apiConfig, smsCodeConfig
-import time, datetime, requests
+import time, datetime, requests, json
 
 
 def listCallup(param):
@@ -14,19 +14,20 @@ def listCallup(param):
     print(paramList)
     msg = {
     }
-
     # msg['EventId'] = str(time.time()*1000)
     # msg['EventDateTime'] = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S.%f')
 
-    for group in param:
-        if len(group) == 0:
+    for group in paramList:
+        if group == 'dron':
             continue
-        msg['EventId'] = str(time.time() * 1000)
-        msg['EventDateTime'] = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S.%f')
+        if len(group) == 0 :
+            continue
+        msg['EventId'] = str(int(time.time() * 1000))
+        msg['EventDateTime'] = str(datetime.datetime.now())[:-7]
         msg['Regiment'] = smsCodeConfig.regiment['PA1'] # 1대대
         msg['MissionType'] = smsCodeConfig.missionType['경계감시']
         msg['EquipID'] = 'ESE'
-        msg['EventType'] = smsCodeConfig.eventType['경계감시']
+        msg['EventType'] = smsCodeConfig.eventType['침입']
         msg['ObjectType'] = 'OBT-05' #현역
         msg['Status'] = smsCodeConfig.status['상황접수']
         msg['ActionStartDate'] = str(datetime.datetime.now())
@@ -34,8 +35,9 @@ def listCallup(param):
         msg['ActionContents'] = ''
         msg['ResultContents'] = ''
 
-        msg['GroupCode'] = group
+        msg['GroupCode'] = 'EE-' + group[-2:]
         msg['EventRemark'] = '침입 이벤트 발생, 상황접수'
+        msg['IsSendOk'] = 'N'
 
         msg = json.dumps(msg, ensure_ascii=False).encode('utf-8')
         print(msg)

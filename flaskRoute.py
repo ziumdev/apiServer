@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from apiServerConfig import apiConfig
 import json, requests
-import sendMsg, vms, callup
+import sendMsg, vms, callup, carEntryFn
 import mgrs
 
 
@@ -52,7 +52,7 @@ def mobile():
 def callupList():
     param = request.get_data()
     print(param)
-    postMsg = callup.listCallup(param)
+    callup.listCallup(param)
     # postMsgData = json.dumps(postMsg, ensure_ascii=False).encode('utf-8')
     # print(postMsgData)
     # try:
@@ -63,10 +63,10 @@ def callupList():
     #     print(
     #         {'response': response}
     #     )
-    #     return json.dumps({
-    #         "responseCode": 2000,
-    #         "responseMessage": "success"
-    #     })
+    return json.dumps({
+           "responseCode": 2000,
+           "responseMessage": "success"
+    })
     #
     # except ConnectionError as connError:
     #     print(connError)
@@ -92,11 +92,12 @@ def sendTimeInfo():
         resultData['result'] = 'S'
         resultData['errCd'] = ''
         resultData['equipId'] = param['equipId']
-        resultData['DateTime'] = now
+        resultData['dateTime'] = now
     except Exception as e:
         resultData['result'] = 'E'
         resultData['errCd'] = 'E9999'
     finally:
+        print(json.dumps(resultData))
         return json.dumps(resultData)
 
 
@@ -148,6 +149,27 @@ def mrgs():
         return json.dumps({
             "responseCode": 2000,
             "responseMessgae" : result
+        })
+    except Exception as e:
+        return json.dumps({
+            "responseCode": 4004,
+            "errorMessage": str(e)
+        })
+
+@app.route('/api/carEntry', methods=['POST'])
+def carEntry():
+    param = request.get_json()
+    print(param)
+    try:
+        header = {
+            'Content-type': 'application/json',
+            'API-KEY': 'd74ff0ee8da3b9806b18c877dbf29bbde50b5bd8e4dad7a3a725000feb82e8f1'
+        }
+        response = requests.post(url='http://211.9.3.50:40020/api/carEntry' , data=param, headers=header)
+        print(response)
+        return json.dumps({
+            "responseCode": "2000",
+            "responseMessage": "success"
         })
     except Exception as e:
         return json.dumps({
