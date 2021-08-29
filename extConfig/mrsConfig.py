@@ -9,6 +9,7 @@ mrsSiteCd = 'PA1'
 sendSystemCd = 'SIM'
 headerTypeCd = '001'
 lmsDisasterCode = 'LMS'
+iomEventCode = 'IOM'
 
 space = ' ' * 10
 traceId = '                        '

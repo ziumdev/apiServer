@@ -39,7 +39,7 @@ def run():
     # main 에서 루프를 도는 함수
     getData = check(maxFtime)
     if getData["flag"]:
-        maxFtime=getData['row']['ftime']
+        getMaxFtime=getData['row']['ftime']
         sendMessage.makeEventMsg(getData["row"])
 
 

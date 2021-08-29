@@ -1,5 +1,5 @@
 import socket, uuid
-from extConfig import mrsConfig, lmsConfig
+from extConfig import mrsConfig, inOutManageConfig as iomConfig
 import datetime, json, struct
 
 
@@ -11,34 +11,40 @@ def sendMsg(msg):
 
 
 def makeEventMsg(data):
-    statEvetNm = data['obj'] + ' '+ data['kind']
+    statEvetNm = ''
+    if data['inout'] == 1:
+        statEvetNm = '탄약고 진입'
+    elif data['inout'] == 2:
+        statEvetNm = '탄약고 진출'
 
-    stdCd = mrsConfig.mrsClientCd + '-' + mrsConfig.mrsSiteCd + '-' + '000' + mrsConfig.lmsDisasterCode
+    stdCd = mrsConfig.mrsClientCd + '-' + mrsConfig.mrsSiteCd + '-' + '000' + mrsConfig.iomEventCode
     bodyJson = mrsConfig.bodyJson
 
     uSvcOutbId = str(uuid.uuid4())[:24]
-    statEvetId = stdCd + '001' + 'E' + str(20)
+    statEvetId = stdCd + '001' + 'E' + str(21)
 
-    dataKey = 'eventLogic'
-    dataValue = data['eventLogic']
+    dataKey = 'InOut'
+    dataValue = data['inout']
     statEvetItem = [{'key': dataKey, 'value': dataValue}]
+
+    eventMsg = data['army_name'] + ' ' + data['location_name'] + ' ' + data['evt_name']
 
     bodyJson["StatEvet"]["statEvetId"] = statEvetId
     bodyJson["StatEvet"]["uSvcOutbId"] = uSvcOutbId
     bodyJson["StatEvet"]["statEvetNm"] = statEvetNm
-    bodyJson["StatEvet"]["statEvetGdCd"] = str(lmsConfig.eventLevel[data['eventLevel']])
+    bodyJson["StatEvet"]["statEvetGdCd"] = '00' # 탄약고 출입은 등급이 없음
     bodyJson["StatEvet"]["procSt"] = 1
     bodyJson["StatEvet"]["outbPosCnt"] = 1
     bodyJson["StatEvet"]["outbPosNm"] = statEvetNm
-    bodyJson["StatEvet"]["statEvetCntn"] = data['eventMessage'] + '발생'
+    bodyJson["StatEvet"]["statEvetCntn"] = eventMsg + ' 이벤트 발생'
     bodyJson["StatEvet"]["statEvetOutbDtm"] = ''
     bodyJson["StatEvet"]["statEvetItemCnt"] = 1
     bodyJson["StatEvet"]["statEvetItem"] = statEvetItem
     bodyJson["StatEvet"]["cpxRelEvetOutbSeqnCnt"] = 0
     bodyJson["StatEvet"]["outbPos"] = mrsConfig.location
-    # bodyJson에 담아 mrs, ers로 보내는 내용
 
     sendToErs(bodyJson)
+    pass
 
 
 def sendToErs(jsonData):
