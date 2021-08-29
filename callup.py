@@ -10,7 +10,9 @@ def listCallup(param):
     siteCd = param['site_cd'] # 부대코드 PA1
     targetList = param['target'] # 전파대상
     eventMessage = param['stat_evet_cntn']
-
+    svcThemeCd = param['svc_theme_cd']
+    statEvetCd = str(param['stat_evet_cd'])
+    eventType = str(svcThemeCd+statEvetCd)
     # param = param.decode('utf-8')
     # param = param.replace('&','')
     # paramList = param.split('data%5B%5D=')
@@ -28,9 +30,9 @@ def listCallup(param):
         msg['EventId'] = str(int(time.time() * 1000))
         msg['EventDateTime'] = str(datetime.datetime.now())[:-7]
         msg['Regiment'] = smsCodeConfig.regiment[siteCd] # 1대대
-        msg['MissionType'] = smsCodeConfig.missionType['경계감시']
+        msg['MissionType'] = smsCodeConfig.missionType[svcThemeCd]
         msg['EquipID'] = 'ESE'
-        msg['EventType'] = smsCodeConfig.eventType['침입']
+        msg['EventType'] = smsCodeConfig.eventType[eventType]
         msg['ObjectType'] = 'OBT-05' #현역
         msg['Status'] = smsCodeConfig.status['상황접수']
         msg['ActionStartDate'] = str(datetime.datetime.now())
