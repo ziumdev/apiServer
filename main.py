@@ -13,7 +13,6 @@ def create_app(config_name):
 if __name__ == "__main__":
     scheduler = APScheduler()
     scheduler.add_job(id='check LMS', func=lmsConn.run, trigger='interval', second=1)
-    sc
 
     env = sys.argv[1] if len(sys.argv) > 1 else 'dev'
     # create_app(env).run(host='localhost', port=49999)
