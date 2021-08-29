@@ -35,6 +35,9 @@ def check(index):
             else:
                 conn.close()
                 return {"flag": False, "row": None, "index": rowNo}
+        else:
+            conn.close()
+            return {"flag": False, "row": None, "index": rowNo}
         # if int(row['ftime']) + (iomConfig.interval/1000) > now:
         #     conn.close()
         #     return {"flag": True, "row": row}
