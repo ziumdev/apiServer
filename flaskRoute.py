@@ -50,7 +50,7 @@ def mobile():
 
 @app.route('/callUp', methods=['POST'])
 def callupList():
-    param = request.get_data()
+    param = request.get_json()
     print(param)
     callup.listCallup(param)
     # postMsgData = json.dumps(postMsg, ensure_ascii=False).encode('utf-8')

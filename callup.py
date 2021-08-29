@@ -7,24 +7,26 @@ import time, datetime, requests, json
 def listCallup(param):
     runConfig = apiConfig.TestConfig
 
-    param = param.decode('utf-8')
-    param = param.replace('&','')
-    print(param)
-    paramList = param.split('data%5B%5D=')
-    print(paramList)
+    siteCd = param['site_cd'] # 부대코드 PA1
+    targetList = param['target'] # 전파대상
+
+    # param = param.decode('utf-8')
+    # param = param.replace('&','')
+    # paramList = param.split('data%5B%5D=')
+
     msg = {
     }
     # msg['EventId'] = str(time.time()*1000)
     # msg['EventDateTime'] = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S.%f')
 
-    for group in paramList:
-        if group == 'dron':
+    for target in targetList:
+        if target == 'dron':
             continue
-        if len(group) == 0 :
+        if len(target) == 0 :
             continue
         msg['EventId'] = str(int(time.time() * 1000))
         msg['EventDateTime'] = str(datetime.datetime.now())[:-7]
-        msg['Regiment'] = smsCodeConfig.regiment['PA1'] # 1대대
+        msg['Regiment'] = smsCodeConfig.regiment[siteCd] # 1대대
         msg['MissionType'] = smsCodeConfig.missionType['경계감시']
         msg['EquipID'] = 'ESE'
         msg['EventType'] = smsCodeConfig.eventType['침입']
@@ -35,7 +37,7 @@ def listCallup(param):
         msg['ActionContents'] = ''
         msg['ResultContents'] = ''
 
-        msg['GroupCode'] = 'EE-' + group[-2:]
+        # msg['GroupCode'] = 'EE-' + group[-2:] 타켓리스트에 대한 코드가 들어가야함
         msg['EventRemark'] = '침입 이벤트 발생, 상황접수'
         msg['IsSendOk'] = 'N'
 
