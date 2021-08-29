@@ -9,6 +9,7 @@ def listCallup(param):
 
     siteCd = param['site_cd'] # 부대코드 PA1
     targetList = param['target'] # 전파대상
+    eventMessage = param['stat_evet_cntn']
 
     # param = param.decode('utf-8')
     # param = param.replace('&','')
@@ -38,7 +39,7 @@ def listCallup(param):
         msg['ResultContents'] = ''
 
         # msg['GroupCode'] = 'EE-' + group[-2:] 타켓리스트에 대한 코드가 들어가야함
-        msg['EventRemark'] = '침입 이벤트 발생, 상황접수'
+        msg['EventRemark'] = eventMessage
         msg['IsSendOk'] = 'N'
 
         msg = json.dumps(msg, ensure_ascii=False).encode('utf-8')

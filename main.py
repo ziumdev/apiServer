@@ -5,6 +5,7 @@ import flaskRoute
 from lmsConnection import connection as lmsConn
 from personInOutCheckConnection import connection as iomConn
 
+
 def create_app(config_name):
     app = flaskRoute.app
     app.config.from_object(apiConfig.config_by_name[config_name])
