@@ -11,6 +11,7 @@ def sendMsg(msg):
 
 
 def makeEventMsg(data):
+    print(data)
     statEvetNm = data['obj'] + ' '+ data['kind']
 
     stdCd = mrsConfig.mrsClientCd + '-' + mrsConfig.mrsSiteCd + '-' + '000' + mrsConfig.lmsDisasterCode
@@ -30,7 +31,11 @@ def makeEventMsg(data):
     bodyJson["StatEvet"]["procSt"] = 1
     bodyJson["StatEvet"]["outbPosCnt"] = 1
     bodyJson["StatEvet"]["outbPosNm"] = statEvetNm
-    bodyJson["StatEvet"]["statEvetCntn"] = data['eventMessage'] + '발생'
+    if data['eventMessage'].startswith("NAC 차단"):
+        bodyJson["StatEvet"]["statEvetCntn"] = '스마트부대망에 비인가 네트워크가 탐지되었습니다'
+    else:
+        bodyJson["StatEvet"]["statEvetCntn"] = 'LMS에서 로그확인이 필요합니다'
+    # bodyJson["StatEvet"]["statEvetCntn"] = data['eventMessage'] + '발생'
     bodyJson["StatEvet"]["statEvetOutbDtm"] = ''
     bodyJson["StatEvet"]["statEvetItemCnt"] = 1
     bodyJson["StatEvet"]["statEvetItem"] = statEvetItem

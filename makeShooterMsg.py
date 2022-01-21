@@ -32,7 +32,7 @@ def makeShooterMsg(param):
 
     location = param['StatEvet']['outbPos']
     eventContent = param['StatEvet']['statEvetNm'] + '이벤트 발생' + ', ' + ''
-    groupCode = 'EE-01'
+    groupCode = 'BN81'
 
     msg['EventId'] = str(time.time()*1000)
     msg['EventDateTime'] = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S.%f')

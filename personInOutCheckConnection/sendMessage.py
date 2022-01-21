@@ -11,11 +11,8 @@ def sendMsg(msg):
 
 
 def makeEventMsg(data):
+    print(data)
     statEvetNm = ''
-    if data['inout'] == 1:
-        statEvetNm = '탄약고 진입'
-    elif data['inout'] == 2:
-        statEvetNm = '탄약고 진출'
 
     stdCd = mrsConfig.mrsClientCd + '-' + mrsConfig.mrsSiteCd + '-' + '000' + mrsConfig.iomEventCode
     bodyJson = mrsConfig.bodyJson
@@ -27,7 +24,8 @@ def makeEventMsg(data):
     dataValue = data['inout']
     statEvetItem = [{'key': dataKey, 'value': dataValue}]
 
-    eventMsg = data['army_name'] + ' ' + data['location_name'] + ' ' + data['evt_name']
+    eventMsg = data['army_name'] + ' ' + data['location_name'] + ' '
+    statEvetNm = eventMsg + ' 출입'
 
     bodyJson["StatEvet"]["statEvetId"] = statEvetId
     bodyJson["StatEvet"]["uSvcOutbId"] = uSvcOutbId
@@ -36,7 +34,7 @@ def makeEventMsg(data):
     bodyJson["StatEvet"]["procSt"] = 1
     bodyJson["StatEvet"]["outbPosCnt"] = 1
     bodyJson["StatEvet"]["outbPosNm"] = statEvetNm
-    bodyJson["StatEvet"]["statEvetCntn"] = eventMsg + ' 이벤트 발생'
+    bodyJson["StatEvet"]["statEvetCntn"] = eventMsg + ' 미상인원 출입'
     bodyJson["StatEvet"]["statEvetOutbDtm"] = ''
     bodyJson["StatEvet"]["statEvetItemCnt"] = 1
     bodyJson["StatEvet"]["statEvetItem"] = statEvetItem

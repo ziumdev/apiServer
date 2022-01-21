@@ -1,15 +1,35 @@
 eventType = {
     "VWE02": "EVT-01",  # 침입
     "VWE01": "EVT-02",  # 배회
+    "VWE00": "EVT-00",
     "VWE04": "EVT-03",  # 유기
     "DIE03": "EVT-04",  # 생활관화재
     "DIE04": "EVT-04",  # 급양관화재
     "DIE06": "EVT-04",  # 보일러실 화재
     "DIE08": "EVT-04",  # 창고 화재
-    "전기누전": "EVT-05",
+    "DIE09": "EVT-05",
+    "DIE10": "EVT_05",
     "DIE05": "EVT-06",  # 급양관 가스
     "DIE07": "EVT-06",  # 창고 가스
     "DIE11": "EVT-06",  # 창고 가스
+    "DIE31": "EVT-06",
+    "DIE32": "EVT-06",
+    "DIE33": "EVT-06",
+    "DIE34": "EVT-06",
+    "DIE35": "EVT-06",
+    "DIE36": "EVT-06",
+    "DIE37": "EVT-06",
+    "DIE38": "EVT-06",
+    "DIE39": "EVT-06",
+    "DIE40": "EVT-06",
+    "DIE41": "EVT-06",
+    "DIE42": "EVT-06",
+    "DIE43": "EVT-06",
+    "DIE44": "EVT-06",
+    "DIE45": "EVT-06",
+    "DIE46": "EVT-06",
+    "DIE47": "EVT-06",
+    "DIE48": "EVT-06",
     "실신": "EVT-07",
     "싸움": "EVT-08",
     "구타": "EVT-09",
@@ -19,7 +39,7 @@ eventType = {
     "과속": "EVT-13",
     "이탈": "EVT-14",
     "사고": "EVT-15",
-    "PHN": "EVT-16"  # 병력 SOS
+    "PHN10": "EVT-16"  # 병력 SOS
 }
 
 status = {

@@ -10,6 +10,7 @@ sendSystemCd = 'SIM'
 headerTypeCd = '001'
 lmsDisasterCode = 'LMS'
 iomEventCode = 'IOM'
+lidarEventCode = 'LDR'
 
 space = ' ' * 10
 traceId = '                        '

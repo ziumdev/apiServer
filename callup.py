@@ -1,46 +1,52 @@
-import json
-
 from apiServerConfig import apiConfig, smsCodeConfig
 import time, datetime, requests, json
 
 
 def listCallup(param):
     runConfig = apiConfig.TestConfig
+    # param = json.loads(param)
+    siteCd = str(param['site_cd']) # 부대코드 PA1
 
-    siteCd = param['site_cd'] # 부대코드 PA1
-    targetList = param['target'] # 전파대상
+    # 전파대상이 리스트인시 스트링인지 체크
+    targetList = []
+    if type(param['target']) is list:
+        targetList.extend(param['target']) # 전파대상
+    elif type(param['target']) is str:
+        targetList.append(param['target'])
     eventMessage = param['stat_evet_cntn']
     svcThemeCd = param['svc_theme_cd']
     statEvetCd = str(param['stat_evet_cd'])
     eventType = str(svcThemeCd+statEvetCd)
-    # param = param.decode('utf-8')
-    # param = param.replace('&','')
-    # paramList = param.split('data%5B%5D=')
+    statEvetOutbSeqn = str(param['stat_evet_outb_seqn'])
 
     msg = {
     }
-    # msg['EventId'] = str(time.time()*1000)
-    # msg['EventDateTime'] = datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S.%f')
 
     for target in targetList:
+        print(target)
         if target == 'dron':
             continue
         if len(target) == 0 :
             continue
         msg['EventId'] = str(int(time.time() * 1000))
         msg['EventDateTime'] = str(datetime.datetime.now())[:-7]
-        msg['Regiment'] = smsCodeConfig.regiment[siteCd] # 1대대
+        msg['Regiment'] = smsCodeConfig.regiment[siteCd]
         msg['MissionType'] = smsCodeConfig.missionType[svcThemeCd]
-        msg['EquipID'] = 'ESE'
+        msg['EquipID'] = param['equipId']
         msg['EventType'] = smsCodeConfig.eventType[eventType]
-        msg['ObjectType'] = 'OBT-05' #현역
+        if svcThemeCd == 'PHN':
+            if eventType == 'PHN10':
+                msg['EventType'] = 'MT-11'
+            else:
+                msg['EventType'] = 'MT-03'
+        msg['ObjectType'] = smsCodeConfig.regiment[siteCd]#현역
         msg['Status'] = smsCodeConfig.status['상황접수']
         msg['ActionStartDate'] = str(datetime.datetime.now())
         msg['ActionEndDate'] = str(datetime.datetime.now())
         msg['ActionContents'] = ''
         msg['ResultContents'] = ''
 
-        # msg['GroupCode'] = 'EE-' + group[-2:] 타켓리스트에 대한 코드가 들어가야함
+        msg['GroupCode'] = target
         msg['EventRemark'] = eventMessage
         msg['IsSendOk'] = 'N'
 
@@ -59,3 +65,4 @@ def listCallup(param):
             continue
         finally:
             msg = {}
+
